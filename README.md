@@ -24,7 +24,7 @@ The books service uses the authors service in order to retrieve authors data, se
   
 ### Running the test ###
 
-I've ran this test with the following __Ubuntu__, _Docker_ and _Docker compose_ versions:
+I've ran this test with the following _Ubuntu_, _Docker_ and _Docker compose_ versions:
 
 * __Ubuntu__: 16.04
 * __Docker API__: 1.25
