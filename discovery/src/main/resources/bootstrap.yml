@@ -1,0 +1,8 @@
+server:
+  port: 8761
+
+# We are not a client but a server
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false

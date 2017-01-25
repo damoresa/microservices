@@ -1,0 +1,10 @@
+turbine:
+  appConfig: books-service
+  clusterNameExpression: "'default'"
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+  instance:
+    preferIpAddress: true

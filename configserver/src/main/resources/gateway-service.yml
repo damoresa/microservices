@@ -1,0 +1,27 @@
+ribbon:
+  eureka:
+    enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+  instance:
+    preferIpAddress: true
+
+zuul:
+  routes:
+    authors-service:
+      path: /authors-service/**
+      serviceId: authors-service
+    books-service:
+      path: /books-service/**
+      serviceId: books-service
+
+# Disable timeouts on Zuul in order to avoid timeouts for Hystrix fallbacks on services
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false

@@ -1,0 +1,13 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: books-service
+  cloud:
+    config:
+      uri: http://config:8080
+      failFast: true
+      retry:
+        initialInterval: 2000
+        maxAttempts: 30

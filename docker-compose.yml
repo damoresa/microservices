@@ -1,0 +1,49 @@
+version: '2'
+services:
+  discovery:
+    image: microservices/discovery:1.0.1
+    container_name: discovery
+    ports:
+     - "8761:8761"
+  config:
+    image: microservices/configserver:1.0.1
+    container_name: config
+    ports:
+     - "8080:8080"
+  dashboard:
+    image: microservices/hystrix-dashboard:1.0.1
+    container_name: dashboard
+    ports:
+     - "8079:8079"
+  turbine:
+    image: microservices/turbine:1.0.1
+    container_name: turbine
+    ports:
+     - "8078:8078"
+    depends_on:
+     - discovery
+     - config
+  gateway:
+    image: microservices/gateway:1.0.1
+    container_name: gateway
+    ports:
+     - "8090:8090"
+    depends_on:
+     - discovery
+     - config
+  authors-service:
+    image: microservices/authors:1.0.1
+    container_name: authors-service
+    depends_on:
+     - discovery
+     - config
+    ports:
+      - "8081"
+  books-service:
+    image: microservices/books:1.0.1
+    container_name: books-service
+    depends_on:
+     - discovery
+     - config
+    ports:
+     - "8082"
