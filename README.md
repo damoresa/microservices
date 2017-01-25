@@ -22,7 +22,7 @@ On top of the mentioned libraries, this sample provides two services:
 The books service uses the authors service in order to retrieve authors data, serving as a sample of service communication within _Docker_ containers.
 
   
-### Running the test ###
+### Running the sample ###
 
 I've ran this test with the following _Ubuntu_, _Docker_ and _Docker compose_ versions:
 
