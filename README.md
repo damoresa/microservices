@@ -33,6 +33,10 @@ I've ran this test with the following _Ubuntu_, _Docker_ and _Docker compose_ ve
 * __Ubuntu__: 16.04
 * __Docker API__: 1.25
 * __Docker Version__: 1.13.0
+* __NPM version__: 3.10.10
+* __Node version__: 6.9.4
+* __Webpack__: 2.2.0
+* __Angular 2__: 2.4.6
 
 You ought to follow these steps in order to run this sample on your local machine.
 
