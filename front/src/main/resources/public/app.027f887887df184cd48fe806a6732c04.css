@@ -20,6 +20,10 @@ a {
 .container {
   width: 100%; }
 
+nav a.rll-menu-item {
+  color: #ffffff;
+  padding: 1rem; }
+
 .menu {
   background: #072146;
   color: #BDBDBD;
@@ -96,4 +100,4 @@ a {
 .brand-bank {
   margin: auto 0; }
 
-/*# sourceMappingURL=app.48424a15ffa1b9afb7b9.bundle.map*/
+/*# sourceMappingURL=app.3da752c9179bdbaea87f.bundle.map*/

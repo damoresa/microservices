@@ -1,19 +1,20 @@
 <div class="header">
   <div class="row col-md-12">
-    <div class="col-md-4" style="padding: 1rem;">
-      <h5>NG2-AOT POC</h5>
+    <div class="col-md-2" style="padding: 1rem;">
+      <h5>Microservices NG2 POC</h5>
     </div>
-    <div class="col-md-8">
-      <nav>
-        <a routerLink="/home" routerLinkActive="active">Home</a>
-        <a routerLink="/about" routerLinkActive="active">About</a>
+    <div class="col-md-10">
+      <nav class="row col-md-12">
+        <a class="col-md-3 text-center rll-menu-item" routerLink="/home" routerLinkActive="active">Home</a>
+        <a class="col-md-3 text-center rll-menu-item" routerLink="/books" routerLinkActive="active">Books</a>
+        <a class="col-md-3 text-center rll-menu-item" routerLink="/authors" routerLinkActive="active">Authors</a>
       </nav>
     </div>
   </div>
 </div>
 
 <div class="container-fluid content">
-  <div style="min-height: 30rem;">
+  <div style="min-height: 30rem; padding: 1rem;">
     <router-outlet></router-outlet>
   </div>
 </div>

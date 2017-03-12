@@ -3,7 +3,10 @@ package com.rll.microservices.books;
 import com.rll.microservices.books.dao.BookDAO;
 import com.rll.microservices.books.model.Book;
 import com.rll.microservices.common.model.authors.AuthorDTO;
+import com.rll.microservices.common.model.authors.GetAuthorResponse;
 import com.rll.microservices.common.model.books.BookDTO;
+import com.rll.microservices.common.model.books.GetBookResponse;
+import com.rll.microservices.common.model.books.GetBooksResponse;
 import com.rll.microservices.common.model.operations.OperationResponse;
 import com.rll.microservices.common.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +55,7 @@ public class BooksController {
         return book;
     }
 
-    @RequestMapping(path = "/books/init", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "/books/init", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     void initBooks() {
 
         Book book1 = new Book("1", "ISO-331", "This is a test book", "The test book was written for test purposes", "1");
@@ -62,11 +65,12 @@ public class BooksController {
         bookDAO.save(Arrays.asList(book1, book2, book3));
     }
 
-    @RequestMapping(value = "/books", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    List<BookDTO> getBooks(
+    @RequestMapping(value = "/books", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    GetBooksResponse getBooks(
             @RequestParam(value = "book_title", required = false) String bookTitle,
             @RequestParam(value = "book_isbn", required = false) String bookIsbn) {
 
+        GetBooksResponse response = new GetBooksResponse();
         List<BookDTO> bookDTOs = new ArrayList<BookDTO>();
 
         Book bookProbe = new Book();
@@ -79,15 +83,24 @@ public class BooksController {
 
         for (Book book : books)
         {
-            AuthorDTO author = authorsClient.getAuthorData(book);
+            GetAuthorResponse authorResponse = authorsClient.getAuthorData(book);
 
-            bookDTOs.add(this.modelToDTO(book, author));
+            bookDTOs.add(this.modelToDTO(book, authorResponse.getResult()));
         }
 
-        return bookDTOs;
+        if (!bookDTOs.isEmpty())
+        {
+            response.setResult(bookDTOs);
+        }
+        else
+        {
+            CommonUtils.generateError(response, "BOOKS_GETLIST_001", "Unable to retrieve books");
+        }
+
+        return response;
     }
 
-    @RequestMapping(path = "/books", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "/books", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     OperationResponse createBook(@RequestBody BookDTO book) {
         OperationResponse response = new OperationResponse();
 
@@ -106,7 +119,7 @@ public class BooksController {
         return response;
     }
 
-    @RequestMapping(path = "/books", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "/books", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     OperationResponse updateBook(@RequestBody BookDTO book) {
         OperationResponse response = new OperationResponse();
 
@@ -125,24 +138,29 @@ public class BooksController {
         return response;
     }
 
-    @RequestMapping(path = "/books/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    BookDTO getBook(@PathVariable("id") String id) {
+    @RequestMapping(path = "/books/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    GetBookResponse getBook(@PathVariable("id") String id) {
 
-        BookDTO bookDTO = null;
+        GetBookResponse response = new GetBookResponse();
 
         Book book = bookDAO.findOne(id);
 
         if (book != null)
         {
-            AuthorDTO author = authorsClient.getAuthorData(book);
+            GetAuthorResponse authorResponse = authorsClient.getAuthorData(book);
 
-            bookDTO = this.modelToDTO(book, author);
+            BookDTO bookDTO = this.modelToDTO(book, authorResponse.getResult());
+            response.setResult(bookDTO);
+        }
+        else
+        {
+            CommonUtils.generateError(response, "BOOKS_GETSINGLE_001", "Unable to retrieve book");
         }
 
-        return bookDTO;
+        return response;
     }
 
-    @RequestMapping(path = "/books/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "/books/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     OperationResponse deleteBook(@PathVariable("id") String id) {
         OperationResponse response = new OperationResponse();
 
@@ -160,21 +178,25 @@ public class BooksController {
         return response;
     }
 
-    @RequestMapping(path = "/books/isbn/{isbn}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    BookDTO getBookByISBN(@PathVariable("isbn") String isbn) {
+    @RequestMapping(path = "/books/isbn/{isbn}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    GetBookResponse getBookByISBN(@PathVariable("isbn") String isbn) {
 
-
-        BookDTO bookDTO = null;
+        GetBookResponse response = new GetBookResponse();
 
         Book book = bookDAO.findByIsbn(isbn);
 
         if (book != null)
         {
-            AuthorDTO author = authorsClient.getAuthorData(book);
+            GetAuthorResponse authorResponse = authorsClient.getAuthorData(book);
 
-            bookDTO = this.modelToDTO(book, author);
+            BookDTO bookDTO = this.modelToDTO(book, authorResponse.getResult());
+            response.setResult(bookDTO);
+        }
+        else
+        {
+            CommonUtils.generateError(response, "BOOKS_GETSINGLE_002", "Unable to retrieve book by ISBN");
         }
 
-        return bookDTO;
+        return response;
     }
 }

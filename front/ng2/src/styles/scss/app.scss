@@ -24,6 +24,11 @@ a { text-decoration: none !important; }
 .header {
 }
 
+nav a.rll-menu-item {
+  color: $white;
+  padding: 1rem;
+}
+
 .menu {
   background: $menu-color;
   color: $menu-font-color;

@@ -1,4 +1,4 @@
-package com.rll.microservices.common.model.operations;
+package com.rll.microservices.common.model.base;
 
 public class Error implements java.io.Serializable {
 

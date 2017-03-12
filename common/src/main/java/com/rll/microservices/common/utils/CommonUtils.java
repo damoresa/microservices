@@ -1,6 +1,7 @@
 package com.rll.microservices.common.utils;
 
-import com.rll.microservices.common.model.operations.Error;
+import com.rll.microservices.common.model.base.AbstractResponse;
+import com.rll.microservices.common.model.base.Error;
 import com.rll.microservices.common.model.operations.OperationResponse;
 import com.rll.microservices.common.model.operations.Success;
 
@@ -15,7 +16,7 @@ public final class CommonUtils {
         response.setSuccess(success);
     }
 
-    public static void generateError(OperationResponse response, String code, String message) {
+    public static void generateError(AbstractResponse response, String code, String message) {
         Error error = new Error();
         error.setCode(code);
         error.setMessage(message);
