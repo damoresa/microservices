@@ -11,6 +11,8 @@ This _Github_ repository features a small microservices sample, using the follow
   * __Ribbon__: Used to load balance on the client (or invoker) side.
   * __Hystrix__: Used to monitor failure and short-circuit in case it's needed.
   * __Turbine__: Used to monitor service status on a distributed fashion.
+* __Angular2__: Used to create a simple front application that consumes the exposed _REST_ services. This application includes _lazy loading_ and _ahead of time (AOT)_ compilation.
+* __Webpack__: Used to package the _Angular2_ application and deliver the distributable objects into the microservice.
 
 ### Content ###
 
@@ -37,7 +39,7 @@ You ought to follow these steps in order to run this sample on your local machin
 On the parent project folder, execute a _Maven_ package command:
 
 ```bash
-sudo mvn clean package
+sudo mvn clean install
 ```
 
 2. Run the generated images using _Docker compose_:
