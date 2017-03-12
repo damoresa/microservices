@@ -20,10 +20,12 @@ On top of the mentioned libraries, this sample provides two services:
 
 * Authors-service: service which contains a very simple authors repository.
 * Books-service: service which contains a very simple books repository.
+* Front-service: service which contains a very simple _Angular2_ front application.
 
-The books service uses the authors service in order to retrieve authors data, serving as a sample of service communication within _Docker_ containers.
+The books service uses the authors service in order to retrieve authors data, serving as a sample of service communication within _Docker_ containers.  
+The front service publishes  a frontend application which consumes and manipulates the data exposed by the services.
 
-  
+
 ### Running the sample ###
 
 I've ran this test with the following _Ubuntu_, _Docker_ and _Docker compose_ versions:
