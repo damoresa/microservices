@@ -1,9 +1,8 @@
 package com.rll.microservices.books;
 
-import com.netflix.discovery.converters.Auto;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.rll.microservices.books.model.Author;
 import com.rll.microservices.books.model.Book;
+import com.rll.microservices.common.model.authors.AuthorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -19,13 +18,19 @@ public class AuthorsClient {
     }
 
     @HystrixCommand(fallbackMethod = "defaultAuthor")
-    Author getAuthorData(Book book) {
+    public AuthorDTO getAuthorData(Book book) {
         return this.restTemplate.getForObject(
                 "http://authors-service/authors/{authorId}",
-                Author.class, book.author);
+                AuthorDTO.class, book.author);
     }
 
-    Author defaultAuthor(Book book) {
-        return new Author("0", "Unable to retrieve information", "");
+    public AuthorDTO defaultAuthor(Book book) {
+
+        AuthorDTO author = new AuthorDTO();
+        author.setAuthor_id("0");
+        author.setAuthor_name("Unable to retrieve author information");
+        author.setAuthor_surname("");
+
+        return author;
     }
 }

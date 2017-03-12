@@ -1,0 +1,41 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "isolatedModules": false,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "allowSyntheticDefaultImports": true,
+        "declaration": false,
+        "noImplicitAny": false,
+        "noImplicitUseStrict": false,
+        "removeComments": true,
+        "noEmitHelpers": false,
+        "noLib": false,
+        "preserveConstEnums": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "sourceMap": true,
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "types": [
+            "hammerjs",
+            "jasmine",
+            "node",
+            "protractor",
+            "source-map",
+            "webpack"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+      "aot"
+    ],
+    "awesomeTypescriptLoaderOptions": {
+        "forkChecker": true,
+        "useWebpackText": true
+    },
+    "compileOnSave": false
+}

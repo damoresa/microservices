@@ -1,15 +1,19 @@
 package com.rll.microservices.books;
 
 import com.rll.microservices.books.dao.BookDAO;
-import com.rll.microservices.books.model.Author;
 import com.rll.microservices.books.model.Book;
+import com.rll.microservices.common.model.authors.AuthorDTO;
+import com.rll.microservices.common.model.books.BookDTO;
+import com.rll.microservices.common.model.operations.OperationResponse;
+import com.rll.microservices.common.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Example;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,10 +26,33 @@ public class BooksController {
 
     @Autowired
     private AuthorsClient authorsClient;
+    
     @Autowired
     private BookDAO bookDAO;
 
-    @RequestMapping("/books/init")
+    private BookDTO modelToDTO(Book book, AuthorDTO author) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setBook_id(book.id);
+        bookDTO.setBook_isbn(book.isbn);
+        bookDTO.setBook_title(book.title);
+        bookDTO.setBook_description(book.description);
+        bookDTO.setAuthor(author);
+
+        return bookDTO;
+    }
+
+    private Book DTOToModel(BookDTO bookDTO) {
+        Book book = new Book();
+        book.id = bookDTO.getBook_id();
+        book.isbn = bookDTO.getBook_isbn();
+        book.title = bookDTO.getBook_title();
+        book.description = bookDTO.getBook_description();
+        book.author = bookDTO.getAuthor().getAuthor_id();
+
+        return book;
+    }
+
+    @RequestMapping(path = "/books/init", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     void initBooks() {
 
         Book book1 = new Book("1", "ISO-331", "This is a test book", "The test book was written for test purposes", "1");
@@ -35,24 +62,119 @@ public class BooksController {
         bookDAO.save(Arrays.asList(book1, book2, book3));
     }
 
-    @RequestMapping("/books/{isbn}")
-    Book getBook(@PathVariable("isbn") String isbn) {
-        return bookDAO.findByIsbn(isbn);
-    }
+    @RequestMapping(value = "/books", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    List<BookDTO> getBooks(
+            @RequestParam(value = "book_title", required = false) String bookTitle,
+            @RequestParam(value = "book_isbn", required = false) String bookIsbn) {
 
-    @RequestMapping("/books")
-    List<Book> getBooks() {
+        List<BookDTO> bookDTOs = new ArrayList<BookDTO>();
 
-        List<Book> books = bookDAO.findAll();
+        Book bookProbe = new Book();
+        bookProbe.title = bookTitle;
+        bookProbe.isbn = bookIsbn;
+
+        Example<Book> bookQuery = Example.of(bookProbe);
+
+        List<Book> books = bookDAO.findAll(bookQuery);
 
         for (Book book : books)
         {
-            Author author = authorsClient.getAuthorData(book);
+            AuthorDTO author = authorsClient.getAuthorData(book);
 
-            String authorName = author.name + " " + author.lastname;
-            book.author = authorName;
+            bookDTOs.add(this.modelToDTO(book, author));
         }
 
-        return books;
+        return bookDTOs;
+    }
+
+    @RequestMapping(path = "/books", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    OperationResponse createBook(@RequestBody BookDTO book) {
+        OperationResponse response = new OperationResponse();
+
+        try
+        {
+            Book bookEntity = this.DTOToModel(book);
+            bookDAO.insert(bookEntity);
+
+            CommonUtils.generateSuccess(response, "Book successfully persisted");
+        }
+        catch (Exception ex)
+        {
+            CommonUtils.generateError(response, "BOOKS_INSERT_001", "Unable to persist book: " + ex.getMessage());
+        }
+
+        return response;
+    }
+
+    @RequestMapping(path = "/books", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    OperationResponse updateBook(@RequestBody BookDTO book) {
+        OperationResponse response = new OperationResponse();
+
+        try
+        {
+            Book bookEntity = this.DTOToModel(book);
+            bookDAO.save(bookEntity);
+
+            CommonUtils.generateSuccess(response, "Book successfully updated");
+        }
+        catch (Exception ex)
+        {
+            CommonUtils.generateError(response, "BOOKS_UPDATE_001", "Unable to update book: " + ex.getMessage());
+        }
+
+        return response;
+    }
+
+    @RequestMapping(path = "/books/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    BookDTO getBook(@PathVariable("id") String id) {
+
+        BookDTO bookDTO = null;
+
+        Book book = bookDAO.findOne(id);
+
+        if (book != null)
+        {
+            AuthorDTO author = authorsClient.getAuthorData(book);
+
+            bookDTO = this.modelToDTO(book, author);
+        }
+
+        return bookDTO;
+    }
+
+    @RequestMapping(path = "/books/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    OperationResponse deleteBook(@PathVariable("id") String id) {
+        OperationResponse response = new OperationResponse();
+
+        try
+        {
+            bookDAO.delete(id);
+
+            CommonUtils.generateSuccess(response, "Book successfully deleted");
+        }
+        catch (Exception ex)
+        {
+            CommonUtils.generateError(response, "BOOKS_DELETE_001", "Unable to delete book: " + ex.getMessage());
+        }
+
+        return response;
+    }
+
+    @RequestMapping(path = "/books/isbn/{isbn}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    BookDTO getBookByISBN(@PathVariable("isbn") String isbn) {
+
+
+        BookDTO bookDTO = null;
+
+        Book book = bookDAO.findByIsbn(isbn);
+
+        if (book != null)
+        {
+            AuthorDTO author = authorsClient.getAuthorData(book);
+
+            bookDTO = this.modelToDTO(book, author);
+        }
+
+        return bookDTO;
     }
 }

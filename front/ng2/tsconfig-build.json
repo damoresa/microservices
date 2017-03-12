@@ -1,0 +1,41 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "es2015",
+        "moduleResolution": "node",
+        "declaration": true,
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "mapRoot": "",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "skipLibCheck": true,
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "types": [
+            "hammerjs",
+            "jasmine",
+            "node",
+            "protractor",
+            "source-map",
+            "webpack",
+            "webpack-env"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+        "dist",
+        "**/*.spec.ts"
+    ],
+    "awesomeTypescriptLoaderOptions": {
+        "forkChecker": true,
+        "useWebpackText": true
+    },
+    "angularCompilerOptions": {
+        "genDir": ".",
+        "skipMetadataEmit": true
+    },
+    "compileOnSave": false
+}

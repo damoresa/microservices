@@ -1,0 +1,121 @@
+@import './colors';
+@import './fonts';
+//@import './bootstrap';
+
+aot-app {
+  background: $white;
+}
+
+body {
+  background-color: $site-color;
+  font-family: BentonSansBBVA-Medium !important;
+}
+
+a { text-decoration: none !important; }
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.container {
+  width: 100%;
+}
+
+.header {
+}
+
+.menu {
+  background: $menu-color;
+  color: $menu-font-color;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.menu.main {
+  padding-top: 0.5rem;
+  padding: 0.5rem;
+}
+
+.menu.main ul li {
+  margin: auto 0;
+}
+
+.menu.main ul li a {
+  font-weight: bold;
+}
+
+.menu.submenu {
+  background: $submenu-color;
+  color: $submenu-font-color;
+}
+
+.menu.documentation {
+  background: $white;
+}
+
+.menu.documentation ul {
+  border-right: 0.2rem;
+  border-color: $blue2;
+  border-right-style: solid;
+}
+
+.menu.documentation a {
+  color: $black;
+}
+
+.menu .menu-option {
+  font-family: BentonSansBBVA-Light;
+  cursor: pointer;
+  list-style: none;
+}
+
+.header {
+  background-color: $header-color;
+  color: $header-font-color;
+}
+
+.content {
+  background-color: $white;
+}
+
+.footer {
+  padding: 0.25rem;
+  background-color: $footer-color;
+  color: $footer-font-color;
+}
+
+.footer .footer-logo,
+.footer .title {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.footer .copyright {
+  font-family: BentonSansBBVA-Light;
+  font-size: 10px;
+  margin-top: 20px;
+}
+
+/* Creates a vertical nav starting at 768px (sm) */
+@media (min-width: 768px) {
+    .bootstrap-vertical-nav .collapse {
+        display: block;
+    }
+}
+
+.home-logo {
+  margin: auto 0;
+}
+
+.subheader {
+  color: $site-color;
+  font-weight: bold;
+}
+
+.card-title {
+  color: $site-color;
+}
+
+.brand-bank {
+  margin: auto 0;
+}

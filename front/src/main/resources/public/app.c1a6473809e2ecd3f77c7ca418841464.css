@@ -1,0 +1,99 @@
+@font-face {
+  font-family: 'StagSansLight';
+  src: url(/front-service/fonts/b8d77c7405e6d8da28795c5fab1c2f41.svg) format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+aot-app {
+  background: #ffffff; }
+
+body {
+  background-color: #072146;
+  font-family: BentonSansBBVA-Medium !important; }
+
+a {
+  text-decoration: none !important; }
+
+.uppercase {
+  text-transform: uppercase; }
+
+.container {
+  width: 100%; }
+
+.menu {
+  background: #072146;
+  color: #BDBDBD;
+  padding-top: 15px;
+  padding-bottom: 15px; }
+
+.menu.main {
+  padding-top: 0.5rem;
+  padding: 0.5rem; }
+
+.menu.main ul li {
+  margin: auto 0; }
+
+.menu.main ul li a {
+  font-weight: bold; }
+
+.menu.submenu {
+  background: #004481;
+  color: #E9E9E9; }
+
+.menu.documentation {
+  background: #ffffff; }
+
+.menu.documentation ul {
+  border-right: 0.2rem;
+  border-color: #006ec1;
+  border-right-style: solid; }
+
+.menu.documentation a {
+  color: #000000; }
+
+.menu .menu-option {
+  font-family: BentonSansBBVA-Light;
+  cursor: pointer;
+  list-style: none; }
+
+.header {
+  background-color: #072146;
+  color: #BDBDBD; }
+
+.content {
+  background-color: #ffffff; }
+
+.footer {
+  padding: 0.25rem;
+  background-color: #072146;
+  color: #FFFFFF; }
+
+.footer .footer-logo,
+.footer .title {
+  display: inline-block;
+  vertical-align: middle; }
+
+.footer .copyright {
+  font-family: BentonSansBBVA-Light;
+  font-size: 10px;
+  margin-top: 20px; }
+
+/* Creates a vertical nav starting at 768px (sm) */
+@media (min-width: 768px) {
+  .bootstrap-vertical-nav .collapse {
+    display: block; } }
+
+.home-logo {
+  margin: auto 0; }
+
+.subheader {
+  color: #072146;
+  font-weight: bold; }
+
+.card-title {
+  color: #072146; }
+
+.brand-bank {
+  margin: auto 0; }
+
+/*# sourceMappingURL=app.48424a15ffa1b9afb7b9.bundle.map*/

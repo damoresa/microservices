@@ -17,6 +17,9 @@ zuul:
     books-service:
       path: /books-service/**
       serviceId: books-service
+    front-service:
+      path: /front-service/**
+      serviceId: front-service
 
 # Disable timeouts on Zuul in order to avoid timeouts for Hystrix fallbacks on services
 hystrix:

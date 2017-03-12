@@ -1,4 +1,10 @@
 \.idea
-/target
+**/target
+**/*.log
 *.debug
 *.iml
+**/node_modules/
+**/.npmrc
+**/dist/
+**/coverage/
+*.log

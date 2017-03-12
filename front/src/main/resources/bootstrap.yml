@@ -1,0 +1,13 @@
+server:
+  port: 3000
+
+spring:
+  application:
+    name: front-service
+  cloud:
+    config:
+      uri: http://config:8080
+      failFast: true
+      retry:
+        initialInterval: 2000
+        maxAttempts: 30

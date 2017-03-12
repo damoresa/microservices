@@ -18,6 +18,11 @@
     <build>
         <finalName>books</finalName>
         <plugins>
+            <!-- Spring Boot -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <!-- Docker image generation plugin -->
             <plugin>
                 <groupId>com.spotify</groupId>
@@ -27,6 +32,12 @@
     </build>
 
     <dependencies>
+        <!-- Common -->
+        <dependency>
+            <groupId>com.rll.microservices</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!-- Config -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

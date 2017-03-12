@@ -23,7 +23,7 @@
 
         <!-- Docker plugin -->
         <docker.image.prefix>microservices</docker.image.prefix>
-        <docker.compilation>1.0.1</docker.compilation>
+        <docker.compilation>1.0.2</docker.compilation>
     </properties>
 
     <dependencies>
@@ -65,13 +65,6 @@
     </dependencyManagement>
 
     <build>
-        <plugins>
-            <plugin>
-                <!-- Spring Boot -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
         <pluginManagement>
             <plugins>
                 <!-- Docker image generation plugin -->
@@ -116,6 +109,8 @@
         <module>hystrix-dashboard</module>
         <module>turbine</module>
         <module>gateway</module>
+        <module>common</module>
+        <module>front</module>
     </modules>
 
 </project>

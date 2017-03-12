@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface BookDAO extends MongoRepository<Book, String> {
 
-    public Book findByIsbn(String isbn);
+    Book findByIsbn(String isbn);
 }

@@ -23,7 +23,7 @@ public class Author {
 
     @Override
     public String toString() {
-        String format = "Author[id=%s, name='%s', lastname='%s']";
+        String format = "AuthorDTO[id=%s, name='%s', lastname='%s']";
         return String.format(format, id, name, lastname);
     }
 }
