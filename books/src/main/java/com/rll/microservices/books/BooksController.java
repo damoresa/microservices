@@ -39,6 +39,7 @@ public class BooksController {
         bookDTO.setBook_isbn(book.isbn);
         bookDTO.setBook_title(book.title);
         bookDTO.setBook_description(book.description);
+        bookDTO.setAuthor_id(author.getAuthor_id());
         bookDTO.setAuthor(author);
 
         return bookDTO;
@@ -46,11 +47,10 @@ public class BooksController {
 
     private Book DTOToModel(BookDTO bookDTO) {
         Book book = new Book();
-        book.id = bookDTO.getBook_id();
         book.isbn = bookDTO.getBook_isbn();
         book.title = bookDTO.getBook_title();
         book.description = bookDTO.getBook_description();
-        book.author = bookDTO.getAuthor().getAuthor_id();
+        book.author = bookDTO.getAuthor_id();
 
         return book;
     }
@@ -58,9 +58,9 @@ public class BooksController {
     @RequestMapping(path = "/books/init", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     void initBooks() {
 
-        Book book1 = new Book("1", "ISO-331", "This is a test book", "The test book was written for test purposes", "1");
-        Book book2 = new Book("2", "ISO-332", "This is the second test book", "The second test book was written for test purposes", "1");
-        Book book3 = new Book("3", "ISO-333", "This is the third test book", "The third test book was written for test purposes", "2");
+        Book book1 = new Book("ISO-331", "This is a test book", "The test book was written for test purposes", "1");
+        Book book2 = new Book("ISO-332", "This is the second test book", "The second test book was written for test purposes", "1");
+        Book book3 = new Book("ISO-333", "This is the third test book", "The third test book was written for test purposes", "2");
 
         bookDAO.save(Arrays.asList(book1, book2, book3));
     }
@@ -125,7 +125,10 @@ public class BooksController {
 
         try
         {
-            Book bookEntity = this.DTOToModel(book);
+            Book bookEntity = bookDAO.findOne(book.getBook_id());
+            bookEntity.title = book.getBook_title();
+            bookEntity.description = book.getBook_description();
+
             bookDAO.save(bookEntity);
 
             CommonUtils.generateSuccess(response, "Book successfully updated");

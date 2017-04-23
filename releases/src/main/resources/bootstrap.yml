@@ -1,0 +1,13 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: releases-service
+  cloud:
+    config:
+      uri: http://config:8080
+      failFast: true
+      retry:
+        initialInterval: 2000
+        maxAttempts: 30

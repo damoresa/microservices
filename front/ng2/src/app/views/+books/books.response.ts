@@ -1,4 +1,4 @@
-import { Book } from "./book";
+import { Book } from "../../common/book";
 import { Error } from "./../../common/error";
 
 export class BooksResponse {

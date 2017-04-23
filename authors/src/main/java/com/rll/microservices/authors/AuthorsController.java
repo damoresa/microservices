@@ -35,7 +35,6 @@ class AuthorsController {
 
     private Author DTOToModel(AuthorDTO authorDTO) {
         Author author = new Author();
-        author.id = authorDTO.getAuthor_id();
         author.name = authorDTO.getAuthor_name();
         author.lastname = authorDTO.getAuthor_surname();
 
@@ -45,8 +44,8 @@ class AuthorsController {
     @RequestMapping(path = "/authors/init", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     void initAuthors() {
 
-        Author author1 = new Author("1", "Daniel", "Amores");
-        Author author2 = new Author("2", "Begoña", "Pacheco");
+        Author author1 = new Author("Morty", "Snow");
+        Author author2 = new Author("Rick", "Sanchez");
 
         authorDAO.save(Arrays.asList(author1, author2));
     }
@@ -109,7 +108,10 @@ class AuthorsController {
 
         try
         {
-            Author authorEntity = this.DTOToModel(author);
+            Author authorEntity = authorDAO.findOne(author.getAuthor_id());
+            authorEntity.name = author.getAuthor_name();
+            authorEntity.lastname = author.getAuthor_surname();
+
             authorDAO.save(authorEntity);
 
             CommonUtils.generateSuccess(response, "Author successfully updated");

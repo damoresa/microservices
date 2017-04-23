@@ -1,20 +1,95 @@
 <div class="offset-md-3 col-md-6">
-    <table class="table table-responsive">
-        <thead class="thead-default">
-            <tr>
-                <th class="col-md-2 text-center"></th>
-                <th class="col-md-2 text-center">ISBN</th>
-                <th class="col-md-4 text-center">Title</th>
-                <th class="col-md-4 text-center">Author</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let book of books">
-                <td></td>
-                <td>{{ book.book_isbn }}</td>
-                <td>{{ book.book_title }}</td>
-                <td>{{ book.author.author_name }} {{ book.author.author_surname }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-default">
+                    <tr>
+                        <th class="col-2 text-center"></th>
+                        <th class="col-2 text-center">ISBN</th>
+                        <th class="col-4 text-center">Title</th>
+                        <th class="col-4 text-center">Author</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let book of books">
+                        <td><a [routerLink]="['/books', book.book_id]">Detail</a></td>
+                        <td>{{ book.book_isbn }}</td>
+                        <td>{{ book.book_title }}</td>
+                        <td>{{ book.author.author_name }} {{ book.author.author_surname }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <form class="col-md-12" (ngSubmit)="submit(); bookForm.reset();" #bookForm="ngForm" novalidate>
+
+            <legend>Book Creation</legend>
+
+            <div class="form-group row" [ngClass]="{ 'has-danger' : !book_isbn.pristine && book_isbn.errors }">
+                <label class="col-md-3 col-form-label" for="bookIsbn">ISBN: </label>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" id="bookIsbn" name="book_isbn"
+                           [(ngModel)]="model.book_isbn"
+                           [ngClass]="{ 'form-control-danger' : !book_isbn.pristine && book_isbn.errors }"
+                           #book_isbn="ngModel"
+                           placeholder="ISBN"
+                           required />
+
+                    <div [hidden]="book_isbn.pristine || !book_isbn.errors" class="form-control-feedback">You must input the book's ISBN</div>
+                </div>
+            </div>
+
+            <div class="form-group row" [ngClass]="{ 'has-danger' : !book_title.pristine && book_title.errors }">
+                <label class="col-md-3 col-form-label" for="bookTitle">Title: </label>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" id="bookTitle" name="book_title"
+                           [(ngModel)]="model.book_title"
+                           [ngClass]="{ 'form-control-danger' : !book_title.pristine && book_title.errors }"
+                           #book_title="ngModel"
+                           placeholder="Title"
+                           required />
+
+                    <div [hidden]="book_title.pristine || !book_title.errors" class="form-control-feedback">You must input the book's title</div>
+                </div>
+            </div>
+
+            <div class="form-group row" [ngClass]="{ 'has-danger' : !book_description.pristine && book_description.errors }">
+                <label class="col-md-3 col-form-label" for="bookDescription">Description: </label>
+                <div class="col-md-9">
+                    <textarea class="form-control" type="text" id="bookDescription" name="book_description"
+                           [(ngModel)]="model.book_description"
+                           [ngClass]="{ 'form-control-danger' : !book_description.pristine && book_description.errors }"
+                           #book_description="ngModel"
+                           placeholder="Description"
+                           cols="6"
+                           required>
+
+                    </textarea>
+
+                    <div [hidden]="book_description.pristine || !book_description.errors" class="form-control-feedback">You must input the book's description</div>
+                </div>
+            </div>
+
+            <div class="form-group row" [ngClass]="{ 'has-danger' : !author_id.pristine && author_id.errors }">
+                <label class="col-md-3 col-form-label" for="bookAuthor">Author: </label>
+                <div class="col-md-9">
+                    <select class="form-control" id="bookAuthor" name="author_id"
+                              [(ngModel)]="model.author_id"
+                              [ngClass]="{ 'form-control-danger' : !author_id.pristine && author_id.errors }"
+                              #author_id="ngModel"
+                              required>
+                        <option value="" selected>Choose an author...</option>
+                        <option *ngFor="let author of authors" [value]="author.author_id">{{ author.author_name }} {{ author.author_surname }}</option>
+                    </select>
+
+                    <div [hidden]="author_id.pristine || !author_id.errors" class="form-control-feedback">You choose the book's author</div>
+                </div>
+            </div>
+
+            <div class="col-md-12 text-center">
+                <button type="submit" [disabled]="!bookForm.valid" class="btn btn-outline-primary">Create</button>
+                <button type="button" class="btn btn-outline-info" (click)="clearForm(); bookForm.reset();">Clear</button>
+            </div>
+        </form>
+    </div>
 </div>

@@ -15,15 +15,14 @@ public class Author {
         super();
     }
 
-    public Author(String id, String name, String lastname) {
-        this.id = id;
+    public Author(String name, String lastname) {
         this.name = name;
         this.lastname = lastname;
     }
 
     @Override
     public String toString() {
-        String format = "AuthorDTO[id=%s, name='%s', lastname='%s']";
+        String format = "ReleaseDTO[id=%s, name='%s', lastname='%s']";
         return String.format(format, id, name, lastname);
     }
 }

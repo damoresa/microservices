@@ -15,7 +15,7 @@ module.exports = [
         options: {
             context: path.join(__dirname, '..', 'src'),
             output: {
-                path: path.join(__dirname, '..', 'dist')
+                path: path.join(__dirname, '..', '..', 'src', 'main', 'resources', 'public')
             },
             postcss: [
                 autoprefixer
@@ -83,8 +83,10 @@ module.exports = [
     //
     new ExtractTextPlugin('[name].[contenthash].css'),
 
+    //
     new CopyWebpackPlugin([
-        { from: 'src/mocks/', to: 'mocks/' }  // Mocks
+        { from: 'src/mocks/', to: 'mocks/' },  // Mocks
+        { from: 'src/thin2', to: '' }  // Config service mock
     ], {
         // By default, we only copy modified files during a watch or webpack-dev-server build.
         // Setting this to `true` copies all files.

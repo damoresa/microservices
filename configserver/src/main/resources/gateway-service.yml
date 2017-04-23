@@ -17,6 +17,9 @@ zuul:
     books-service:
       path: /books-service/**
       serviceId: books-service
+    releases-service:
+      path: /releases-service/**
+      serviceId: releases-service
     front-service:
       path: /front-service/**
       serviceId: front-service

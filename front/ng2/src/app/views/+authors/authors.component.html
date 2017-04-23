@@ -1,18 +1,61 @@
 <div class="offset-md-3 col-md-6">
-    <table class="table table-responsive">
-        <thead class="thead-default">
-            <tr>
-                <th class="col-md-2 text-center"></th>
-                <th class="col-md-5 text-center">Name</th>
-                <th class="col-md-5 text-center">Last name</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let author of authors">
-                <td></td>
-                <td>{{ author.author_name }}</td>
-                <td>{{ author.author_surname }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-default">
+                    <tr>
+                        <th class="col-2 text-center"></th>
+                        <th class="col-5 text-center">Name</th>
+                        <th class="col-5 text-center">Last name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let author of authors">
+                        <td></td>
+                        <td>{{ author.author_name }}</td>
+                        <td>{{ author.author_surname }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <form class="col-md-12" (ngSubmit)="submit(); authorForm.reset();" #authorForm="ngForm" novalidate>
+
+            <legend>Author Creation</legend>
+
+            <div class="form-group row" [ngClass]="{ 'has-danger' : !author_name.pristine && author_name.errors }">
+                <label class="col-md-3 col-form-label" for="authorName">Name: </label>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" id="authorName" name="author_name"
+                           [(ngModel)]="model.author_name"
+                           [ngClass]="{ 'form-control-danger' : !author_name.pristine && author_name.errors }"
+                           #author_name="ngModel"
+                           placeholder="Author name"
+                           required />
+
+                    <div [hidden]="author_name.pristine || !author_name.errors" class="form-control-feedback">You must input the author's name</div>
+                </div>
+            </div>
+
+            <div class="form-group row" [ngClass]="{ 'has-danger' : !author_surname.pristine && author_surname.errors }">
+                <label class="col-md-3 col-form-label" for="authorSurname">Surname: </label>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" id="authorSurname" name="author_surname"
+                           [(ngModel)]="model.author_surname"
+                           [ngClass]="{ 'form-control-danger' : !author_surname.pristine && author_name.errors }"
+                           #author_surname="ngModel"
+                           placeholder="Author surname"
+                           required
+                    />
+
+                    <div [hidden]="author_surname.pristine || !author_surname.errors" class="form-control-feedback">You must input the author's surname</div>
+                </div>
+            </div>
+
+            <div class="col-md-12 text-center">
+                <button type="submit" [disabled]="!authorForm.valid" class="btn btn-outline-primary">Create</button>
+                <button type="button" class="btn btn-outline-info" (click)="clearForm(); authorForm.reset();">Clear</button>
+            </div>
+        </form>
+    </div>
 </div>

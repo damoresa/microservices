@@ -111,6 +111,7 @@
         <module>gateway</module>
         <module>common</module>
         <module>front</module>
+        <module>releases</module>
     </modules>
 
 </project>

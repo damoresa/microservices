@@ -8,6 +8,7 @@ public class BookDTO implements java.io.Serializable {
     private String book_isbn;
     private String book_title;
     private String book_description;
+    private String author_id;
     private AuthorDTO author;
 
     public String getBook_id() {
@@ -40,6 +41,14 @@ public class BookDTO implements java.io.Serializable {
 
     public void setBook_description(String book_description) {
         this.book_description = book_description;
+    }
+
+    public String getAuthor_id() {
+        return author_id;
+    }
+
+    public void setAuthor_id(String author_id) {
+        this.author_id = author_id;
     }
 
     public AuthorDTO getAuthor() {

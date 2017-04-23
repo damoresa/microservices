@@ -10,7 +10,10 @@ module.exports = {
 
     resolve: {
         extensions: ['.ts', '.js'],
-        modules: [path.join(__dirname, '..', 'src'), path.join(__dirname, '..', 'node_modules')]
+        modules: [
+          path.join(__dirname, '..', 'src'),
+          path.join(__dirname, '..', 'node_modules')
+        ]
     },
 
     module: {
@@ -66,15 +69,17 @@ module.exports = {
             // -------------------------------------------------------------------
             {
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                use: "url-loader?limit=10000mimetype=application/font-woff" },
+                use: "url-loader?limit=10000&mimetype=application/font-woff&name=fonts/[name].[ext]"
+            },
+
             {
                 test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                use: "url-loader?limit=10000name=fonts/[name].[ext]"
+                use: "url-loader?limit=10000&name=fonts/[name].[ext]"
             },
 
             {
                 test: /\.(jpe?g|png|gif)$/i,
-                use: 'url-loader?limit=10000'
+                use: 'file-loader?name=images/[name].[ext]'
             },
 
             {
@@ -135,11 +140,11 @@ module.exports = {
         })
     ],
     node: {
-        global: true,
-        process: false,
-        crypto: 'empty',
-        module: false,
-        clearImmediate: false,
-        setImmediate: false
+      global: true,
+      process: false,
+      crypto: 'empty',
+      module: false,
+      clearImmediate: false,
+      setImmediate: false
     }
 };

@@ -47,6 +47,14 @@ services:
      - config
     ports:
      - "8082"
+  releases-service:
+    image: microservices/releases:1.0.2
+    container_name: releases-service
+    depends_on:
+     - discovery
+     - config
+    ports:
+     - "8083"
   front-service:
     image: microservices/front:1.0.2
     container_name: front-service

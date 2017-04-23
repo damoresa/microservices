@@ -1,0 +1,40 @@
+<div class="offset-md-3 col-md-6">
+    <div class="container">
+        <form class="col-md-12">
+
+            <legend>Book Details</legend>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">ISBN: </label>
+                <div class="col-md-9">
+                    <p class="form-control-static">{{ book.book_isbn }}</p>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">Title: </label>
+                <div class="col-md-9">
+                    <p class="form-control-static">{{ book.book_title }}</p>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">Description: </label>
+                <div class="col-md-9">
+                    <p class="form-control-static">{{ book.book_description }}</p>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">Author: </label>
+                <div class="col-md-9">
+                    <p class="form-control-static">{{ book.author.author_name }} {{ book.author.author_surname }}</p>
+                </div>
+            </div>
+
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-outline-info" (click)="back()">Back</button>
+            </div>
+        </form>
+    </div>
+</div>

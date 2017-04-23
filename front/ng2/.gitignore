@@ -5,3 +5,4 @@ dist/
 coverage/
 *.log
 *.iml
+ts-node*

@@ -1,4 +1,4 @@
-import { Author } from './author';
+import { Author } from '../../common/author';
 import { Error } from './../../common/error';
 
 export class AuthorResponse {

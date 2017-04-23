@@ -17,8 +17,7 @@ public class Book {
         super();
     }
 
-    public Book(String id, String isbn, String title, String description, String author) {
-        this.id = id;
+    public Book(String isbn, String title, String description, String author) {
         this.isbn = isbn;
         this.title = title;
         this.description = description;

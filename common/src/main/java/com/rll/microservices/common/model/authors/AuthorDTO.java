@@ -1,6 +1,7 @@
 package com.rll.microservices.common.model.authors;
 
 public class AuthorDTO implements java.io.Serializable {
+
     private String author_id;
     private String author_name;
     private String author_surname;

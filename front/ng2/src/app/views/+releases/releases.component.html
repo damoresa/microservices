@@ -1,0 +1,22 @@
+<div class="offset-md-3 col-md-6">
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-default">
+                <tr>
+                    <th class="col-2 text-center"></th>
+                    <th class="col-6 text-center">Title</th>
+                    <th class="col-4 text-center">Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let release of releases">
+                    <td></td>
+                    <td class="text-center">{{ release.release_title }}</td>
+                    <td class="text-center">{{ release.release_date }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

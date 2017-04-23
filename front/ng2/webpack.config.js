@@ -1,10 +1,15 @@
 switch (process.env.NODE_ENV) {
-    case 'prod':
-    case 'production':
-        console.log('********************************');
-        console.log('******  PRODUCTION BUILD  ******');
-        console.log('********************************\n');
-        module.exports = require('./config/webpack.prod');
+    case 'production-jit':
+        console.log('************************************');
+        console.log('******  PRODUCTION JIT BUILD  ******');
+        console.log('************************************\n');
+        module.exports = require('./config/webpack.prod.jit');
+        break;
+    case 'production-aot':
+        console.log('************************************');
+        console.log('******  PRODUCTION AOT BUILD  ******');
+        console.log('************************************\n');
+        module.exports = require('./config/webpack.prod.aot');
         break;
     case 'test':
     case 'testing':

@@ -1,26 +1,40 @@
 <div class="header">
-  <div class="row col-md-12">
-    <div class="col-md-2" style="padding: 1rem;">
-      <h5>Microservices NG2 POC</h5>
-    </div>
-    <div class="col-md-10">
-      <nav class="row col-md-12">
-        <a class="col-md-3 text-center rll-menu-item" routerLink="/home" routerLinkActive="active">Home</a>
-        <a class="col-md-3 text-center rll-menu-item" routerLink="/books" routerLinkActive="active">Books</a>
-        <a class="col-md-3 text-center rll-menu-item" routerLink="/authors" routerLinkActive="active">Authors</a>
-      </nav>
-    </div>
+  <div class="row offset-md-2 col-md-10">
+    <nav class="navbar navbar-toggleable-md navbar-inverse col-md-12">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navigationBar" aria-controls="navigationBar" aria-expanded="false" aria-label="Navigation menu">
+        <span class="navbar-inverse navbar-toggler-icon"></span>
+      </button>
+
+      <a class="navbar-brand" routerLink="/home">NG2 Microservices Workshop</a>
+      <div class="collapse navbar-collapse" id="navigationBar">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link text-center menu-item" routerLink="/home" routerLinkActive="active">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-center menu-item" routerLink="/books" routerLinkActive="active">Books</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-center menu-item" routerLink="/authors" routerLinkActive="active">Authors</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-center menu-item" routerLink="/releases" routerLinkActive="active">Releases</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </div>
 </div>
 
 <div class="container-fluid content">
-  <div style="min-height: 30rem; padding: 1rem;">
+  <div style="min-height: 50rem; padding: 1rem;">
     <router-outlet></router-outlet>
   </div>
 </div>
 
 <div class="footer">
-  <div class="col-md-4" style="padding: 0.7rem; font-size: 12px;">
-      <p><i>Red Lines Lab</i> (c) 2016</p>
+  <div class="offset-md-2 col-md-4" style="padding: 0.7rem; font-size: 12px;">
+    <p><i></i> (c) 2017</p>
+    <p>NG2 Microservices Workshop</p>
   </div>
 </div>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Author } from "./author";
-import { AuthorsResponse } from "./authors.response";
-import { AuthorsService } from "./authors.service";
+import { Author } from '../../common/author';
+import { AuthorsResponse } from './authors.response';
+import { AuthorsService } from './authors.service';
+import { OperationResponse } from './../../common/operation.response';
 
 @Component({
     selector: 'authors-component',
@@ -11,6 +12,7 @@ import { AuthorsService } from "./authors.service";
 export class AuthorsComponent implements OnInit {
 
     authors: Array<Author> = new Array<Author>();
+    model: Author = new Author('', '', '');
     private authorsService: AuthorsService;
 
     constructor(_authorsService: AuthorsService) {
@@ -18,19 +20,25 @@ export class AuthorsComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.loadAuthors();
+    }
+
+    loadAuthors() {
         this.authorsService.getAuthors()
             .subscribe((response: AuthorsResponse) => {
-                if (response.error === undefined
-                    || response.error === null)
-                {
-                    this.authors = response.result;
-                }
-                else
-                {
-                    // FIXME
-                    // Implement a toast to report these messages
-                    console.log('Error ' + response.error.message);
-                }
+                this.authors = response.result;
             });
+    }
+
+    submit() {
+        this.authorsService.addAuthor(this.model)
+            .subscribe((response: OperationResponse) => {
+                this.clearForm();
+                this.loadAuthors();
+            });
+    }
+
+    clearForm() {
+        this.model = new Author('', '', '');
     }
 }
