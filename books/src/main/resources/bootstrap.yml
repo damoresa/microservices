@@ -4,9 +4,11 @@ server:
 spring:
   application:
     name: books-service
+  profiles:
+    active: @environment.value@
   cloud:
     config:
-      uri: http://config:8080
+      uri: http://@config.host@
       failFast: true
       retry:
         initialInterval: 2000

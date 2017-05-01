@@ -1,11 +1,11 @@
 message: This is a configured hello message
 auth:
-  url: http://host:8888/authService/authRequest
+  url: http://localhost:8888/authService/authRequest
 
 spring:
   data:
     mongodb:
-      uri: mongodb://sboot_usr:1234@ds033986.mlab.com:33986/heroku_f9wknxrf
+      uri: mongodb://mongodb:27017/library
 
 eureka:
   client:

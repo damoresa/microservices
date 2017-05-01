@@ -1,5 +1,10 @@
 version: '2'
 services:
+  mongodb:
+    image: mongo:3.2
+    container_name: mongodb
+    ports:
+     - "27017:27017"
   discovery:
     image: microservices/discovery:1.0.2
     container_name: discovery
@@ -38,7 +43,7 @@ services:
      - discovery
      - config
     ports:
-      - "8081"
+      - "8081:8081"
   books-service:
     image: microservices/books:1.0.2
     container_name: books-service
@@ -46,7 +51,7 @@ services:
      - discovery
      - config
     ports:
-     - "8082"
+     - "8082:8082"
   releases-service:
     image: microservices/releases:1.0.2
     container_name: releases-service
@@ -54,7 +59,7 @@ services:
      - discovery
      - config
     ports:
-     - "8083"
+     - "8083:8083"
   front-service:
     image: microservices/front:1.0.2
     container_name: front-service
@@ -64,4 +69,4 @@ services:
      - authors-service
      - books-service
     ports:
-     - "3000"
+     - "3000:3000"

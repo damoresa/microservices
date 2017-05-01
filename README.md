@@ -46,7 +46,7 @@ You ought to follow these steps in order to run this sample on your local machin
 On the parent project folder, execute a _Maven_ package command:
 
 ```bash
-sudo mvn clean install
+sudo mvn clean install -P docker
 ```
 
 2. Run the generated images using _Docker compose_:

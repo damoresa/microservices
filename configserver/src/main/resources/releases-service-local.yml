@@ -1,0 +1,15 @@
+message: This is a configured hello message
+auth:
+  url: http://localhost:8888/authService/authRequest
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://sboot_usr:1234@ds033986.mlab.com:33986/heroku_f9wknxrf
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true
